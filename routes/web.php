@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\Controller::class, 'index']);
+Route::get('/Category/new', [\App\Http\Controllers\Category::class, 'new']);
+Route::post('/Category/new', [\App\Http\Controllers\Category::class, 'new']);
+Route::get('/Category/all', [\App\Http\Controllers\Category::class, 'getAllCategory']);
+Route::get('/Category/update', [\App\Http\Controllers\Category::class, 'updateCategory']);
+Route::post('/Category/update', [\App\Http\Controllers\Category::class, 'updateCategory']);
+Route::get('/Category/delete', [\App\Http\Controllers\Category::class, 'deleteCategory']);
+Route::get('/Tag/new', [\App\Http\Controllers\Tag::class, 'newTag']);
+Route::post('/Tag/new', [\App\Http\Controllers\Tag::class, 'newTag']);
+Route::get('/Tag/all', [\App\Http\Controllers\Tag::class, 'getAllTags']);
+Route::get('/Tag/update', [\App\Http\Controllers\Tag::class, 'updateTag']);
+Route::post('/Tag/update', [\App\Http\Controllers\Tag::class, 'updateTag']);
+Route::get('/Tag/delete', [\App\Http\Controllers\Tag::class, 'deleteTag']);
+
+
