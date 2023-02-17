@@ -7,7 +7,6 @@ class Tag extends Controller
     public function getAllTags()
     {
         $alltag = \App\Models\Tag::all()->toArray();
-
         return view('list-tags', ['tags' => $alltag]);
     }
 

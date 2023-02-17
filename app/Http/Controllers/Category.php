@@ -10,7 +10,6 @@ class Category extends Controller
     public function getAllCategory()
     {
         $allCat = \App\Models\Category::all()->toArray();
-
         return view('list-categories', ['categories' => $allCat]);
     }
 
