@@ -10,8 +10,15 @@ class Tag extends Controller
         return view('list-tags', ['tags' => $alltag]);
     }
 
+    public function new(Request $request)
+    {
+        return view('tag-category');
+    }
     public function newTag(Request $request)
     {
+        $errors = $request->validate([
+            'name' => 'required|unique:categories|max:255',
+        ]);
         if(!empty($_POST))
         {
             $newTag = new \App\Models\Tag();

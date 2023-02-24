@@ -4,21 +4,17 @@
 </head>
 <body>
 <h1>update Category</h1>
-    @if ($errors->any())
-      <div class="alert alert-danger">
-          <ul>
-              @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-              @endforeach
-          </ul>
-      </div>
-  @endif
-<form action="\Tag\update" method="post">
+<form action="\Post\update" method="post">
     @csrf
     @if(!empty($_GET))
         <input type="hidden" name="id" value="{{$id}}"><br>
         <label>name</label><br>
         <input type="text" name="name" placeholder="{{$name}}"><br>
+        <label>text</label><br>
+        <input type="text" name="text" placeholder="{{$text}}"><br>
+
+        <label>tag</label><br>
+        <input type="text" name="tag" placeholder="{{$tag}}"><br>
         <input type="submit" value="send">
     @endif
 

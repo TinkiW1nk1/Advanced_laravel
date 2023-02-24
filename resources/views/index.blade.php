@@ -8,6 +8,8 @@
 <a href="\Category\new">New Category</a><br>
 <a href="\Tag\all">All Tags</a> <br>
 <a href="\Tag\new">New Tag</a>  <br>
+<a href="\Post\all">Post</a>  <br>
+<a href="\Post\new">PostNew</a>  <br>
 </form>
 </body>
 </html>
