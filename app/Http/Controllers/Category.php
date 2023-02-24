@@ -3,22 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class Category extends Controller
 {
     public function getAllCategory()
     {
         $allCat = \App\Models\Category::all()->toArray();
-
         return view('list-categories', ['categories' => $allCat]);
     }
 
-    public function new()
+    public function new(Request $request)
     {
         if(!empty($_POST))
         {
             $newCat = new \App\Models\Category();
-            $newCat->name = $_POST['name'];
+            $newCat->name = $request->name;
             $newCat->save();
             header('Location: http:/');
         }
@@ -26,15 +26,15 @@ class Category extends Controller
         return view('create-category');
     }
 
-    public function updateCategory()
+    public function updateCategory(Request $request)
     {
         if( !empty($_POST) ){
-            $cat = \App\Models\Category::find($_POST['id']);
-            $cat->name = $_POST['name'];
+            $cat = \App\Models\Category::find($request->id);
+            $cat->name = $request->name;
             $cat->save();
             header('Location: http:/Category/all');
         }else{
-            $id = $_GET['id'];
+            $id = $request->id;
             $cat = \App\Models\Category::find($id);
             $name = $cat->name;
             return view('update-category', ['id' => $id, 'name' => $name ] );
@@ -43,9 +43,9 @@ class Category extends Controller
         return view('update-category');
     }
 
-    public function deleteCategory()
+    public function deleteCategory(Request $request)
     {
-        $category = \App\Models\Category::find($_GET['id']);
+        $category = \App\Models\Category::find($request->id);
         $category->delete();
 
         header('Location: http:/Category/all');
