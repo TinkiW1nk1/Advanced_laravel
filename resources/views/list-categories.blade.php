@@ -8,13 +8,16 @@
 <body>
 <h1>All Categories</h1>
 <table>
-    <th>id</th>
-    <th>name</th>
-    <th>updated_at</th>
-    <th>created_at</th>
-    <th>update</th>
-    <th>delete</th>
-    </tr>
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>updated_at</th>
+            <th>created_at</th>
+            <th>update</th>
+            <th>delete</th>
+            </tr>
+    </thead>
     @foreach( $categories as $row )
         <tr>
             @foreach( $row as $item => $value )
