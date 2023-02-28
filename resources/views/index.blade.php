@@ -10,6 +10,9 @@
 <a href="\Tag\new">New Tag</a>  <br>
 <a href="\Post\all">Post</a>  <br>
 <a href="\Post\new">PostNew</a>  <br>
+<a href="/login">Login in</a>  <br>
+<a href="/logout">logout</a>  <br>
+<a href="/Registration">Registration</a>  <br>
 </form>
 </body>
 </html>
