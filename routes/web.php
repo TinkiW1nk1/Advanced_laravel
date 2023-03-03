@@ -14,22 +14,33 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\Controller::class, 'index']);
-Route::get('/Category/new', [\App\Http\Controllers\Category::class, 'new']);
-Route::post('/Category/new', [\App\Http\Controllers\Category::class, 'newMake']);
-Route::get('/Category/all', [\App\Http\Controllers\Category::class, 'getAllCategory']);
-Route::get('/Category/update', [\App\Http\Controllers\Category::class, 'updateCategory']);
-Route::post('/Category/update', [\App\Http\Controllers\Category::class, 'updateCategory']);
-Route::get('/Category/delete', [\App\Http\Controllers\Category::class, 'deleteCategory']);
-Route::get('/Tag/new', [\App\Http\Controllers\Tag::class, 'newTag']);
-Route::post('/Tag/new', [\App\Http\Controllers\Tag::class, 'newTag']);
-Route::get('/Tag/all', [\App\Http\Controllers\Tag::class, 'getAllTags']);
-Route::get('/Tag/update', [\App\Http\Controllers\Tag::class, 'updateTag']);
-Route::post('/Tag/update', [\App\Http\Controllers\Tag::class, 'updateTag']);
-Route::get('/Tag/delete', [\App\Http\Controllers\Tag::class, 'deleteTag']);
-Route::get('/Post/all', [\App\Http\Controllers\Post::class, 'getPosts']);
-Route::get('/Post/new', [\App\Http\Controllers\Post::class, 'new']);
-Route::post('/Post/new', [\App\Http\Controllers\Post::class, 'newMake']);
-Route::get('/Post/update', [\App\Http\Controllers\Post::class, 'update']);
-Route::post('/Post/update', [\App\Http\Controllers\Post::class, 'update']);
-Route::get('/Tag/delete', [\App\Http\Controllers\Tag::class, 'deleteTag']);
+Route::middleware('auth')->group(function (){
+    Route::get('/Category/new', [\App\Http\Controllers\Category::class, 'new']);
+    Route::post('/Category/new', [\App\Http\Controllers\Category::class, 'newMake']);
+    Route::get('/Category/all', [\App\Http\Controllers\Category::class, 'getAllCategory']);
+    Route::get('/Category/update', [\App\Http\Controllers\Category::class, 'updateCategory']);
+    Route::post('/Category/update', [\App\Http\Controllers\Category::class, 'updateCategory']);
+    Route::get('/Category/delete', [\App\Http\Controllers\Category::class, 'deleteCategory']);
+    Route::get('/Tag/new', [\App\Http\Controllers\Tag::class, 'newTag']);
+    Route::post('/Tag/new', [\App\Http\Controllers\Tag::class, 'newTag']);
+    Route::get('/Tag/all', [\App\Http\Controllers\Tag::class, 'getAllTags']);
+    Route::get('/Tag/update', [\App\Http\Controllers\Tag::class, 'updateTag']);
+    Route::post('/Tag/update', [\App\Http\Controllers\Tag::class, 'updateTag']);
+    Route::get('/Tag/delete', [\App\Http\Controllers\Tag::class, 'deleteTag']);
+    Route::get('/Post/all', [\App\Http\Controllers\Post::class, 'getPosts']);
+    Route::get('/Post/new', [\App\Http\Controllers\Post::class, 'new']);
+    Route::post('/Post/new', [\App\Http\Controllers\Post::class, 'newMake']);
+    Route::get('/Post/update', [\App\Http\Controllers\Post::class, 'update']);
+    Route::post('/Post/update', [\App\Http\Controllers\Post::class, 'update']);
+    Route::get('/Tag/delete', [\App\Http\Controllers\Tag::class, 'deleteTag']);
+    Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+    Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+});
+Route::middleware('guest')->group(function (){
+    Route::get('/login', [\App\Http\Controllers\AuthController::class, 'login']);
+    Route::post('/login', [\App\Http\Controllers\AuthController::class, 'handleLogin']);
+    Route::get('/Registration', [\App\Http\Controllers\AuthController::class, 'registration']);
+    Route::post('/Registration', [\App\Http\Controllers\AuthController::class, 'handleRegistration']);
+});
+
 
