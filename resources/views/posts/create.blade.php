@@ -15,22 +15,16 @@
     </div>
 @endif
 
-<form action="\Post\new" method="post">
+<form action="\posts" method="post">
     @csrf
     <label>name</label><br>
     <input type="text" name="name"><br>
+    <label>text</label><br>
     <input type="text" name="text"><br>
-    <label><h3>Category</h3></label>
-    @foreach($categories as $category)
-        <label for="categories">{{$category['name']}}</label>
-        <input type="checkbox" value="{{$category['id']}}" name="category"><br>
-    @endforeach
-    <label><h3>Tag</h3></label>
-    @foreach($tags as $tag)
-        <label for="tag">{{$tag['name']}}</label>
-        <input type="checkbox" name="tag" value="{{$tag['id']}}"><br>
-    @endforeach
-
+    <label>Cat</label><br>
+    <input type="text" name="category"><br>
+    <label>tag</label><br>
+    <input type="text" name="tag"><br>
     <input type="submit" value="send">
 
 </form>

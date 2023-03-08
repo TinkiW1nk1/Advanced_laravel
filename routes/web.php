@@ -27,20 +27,23 @@ Route::middleware('auth')->group(function (){
     Route::get('/Tag/update', [\App\Http\Controllers\Tag::class, 'updateTag']);
     Route::post('/Tag/update', [\App\Http\Controllers\Tag::class, 'updateTag']);
     Route::get('/Tag/delete', [\App\Http\Controllers\Tag::class, 'deleteTag']);
-    Route::get('/Post/all', [\App\Http\Controllers\Post::class, 'getPosts']);
-    Route::get('/Post/new', [\App\Http\Controllers\Post::class, 'new']);
-    Route::post('/Post/new', [\App\Http\Controllers\Post::class, 'newMake']);
-    Route::get('/Post/update', [\App\Http\Controllers\Post::class, 'update']);
-    Route::post('/Post/update', [\App\Http\Controllers\Post::class, 'update']);
+
+    Route::get('/Post/all', [\App\Http\Controllers\PostController::class, 'index']);
+    Route::get('/posts/create', [\App\Http\Controllers\PostController::class, 'create']);
+    Route::post('/posts', [\App\Http\Controllers\PostController::class, 'store']);
+    Route::get('/posts/{post}/edit', [\App\Http\Controllers\PostController::class, 'edit']);
+    Route::patch('/posts/{post}/update', [\App\Http\Controllers\PostController::class, 'update']);
+    /*Route::put('/posts/{posts}', [\App\Http\Controllers\PostController::class, 'update']);*/
+
     Route::get('/Tag/delete', [\App\Http\Controllers\Tag::class, 'deleteTag']);
     Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
     Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
 });
+
 Route::middleware('guest')->group(function (){
     Route::get('/login', [\App\Http\Controllers\AuthController::class, 'login']);
     Route::post('/login', [\App\Http\Controllers\AuthController::class, 'handleLogin']);
     Route::get('/Registration', [\App\Http\Controllers\AuthController::class, 'registration']);
     Route::post('/Registration', [\App\Http\Controllers\AuthController::class, 'handleRegistration']);
 });
-
 
