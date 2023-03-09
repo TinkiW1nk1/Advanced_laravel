@@ -45,5 +45,7 @@ Route::middleware('guest')->group(function (){
     Route::post('/login', [\App\Http\Controllers\AuthController::class, 'handleLogin']);
     Route::get('/Registration', [\App\Http\Controllers\AuthController::class, 'registration']);
     Route::post('/Registration', [\App\Http\Controllers\AuthController::class, 'handleRegistration']);
+    Route::get('/googleAuth', [\App\Http\Controllers\AuthController::class, 'redirectGoogle']);
+    Route::get('/googleAuth/callbeck', [\App\Http\Controllers\AuthController::class, 'callbeckGoogle']);
 });
 
