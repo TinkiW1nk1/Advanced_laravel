@@ -44,7 +44,11 @@ class AuthController extends Controller
     public function callbeckGoogle()
     {
         $user = Socialite::driver('google')->user();
+        if(User::find($user['email'])){
+            $this->googleAuth($user);
+        }else{
         $this->regOrLogin($user);
+        }
 
     }
 
@@ -55,6 +59,16 @@ class AuthController extends Controller
         $newUser->password = bcrypt('123456');
         $newUser->save();
 
-        return redirect("\\");
+        return view("index");
+    }
+
+    public function googleAuth($user)
+    {
+        $credentials = $user['email'];
+        if (Auth::attempt($credentials)) {
+            return view("index");
+        }
+
+        return redirect("login")->withSuccess('Login details are not valid');
     }
 }
