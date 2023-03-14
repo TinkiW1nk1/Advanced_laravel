@@ -21,7 +21,9 @@
         <th>delete</th>
     </tr>
     </thead>
+
     @foreach( $posts as $post )
+
         <tr>
             @foreach( $post as $item => $value )
                     <?php
@@ -31,8 +33,22 @@
                     ?>
                 <td>{{$value}}</td>
             @endforeach
-            <td><a href="\Post\update?id={{$id}}">Update</a></td>
-            <td><a href="\Post\delete?id={{$id}}">Delete</a></td>
+            <td>
+                <form method="post" action="/Posts/{{$post->id}}">
+                    <input name="_method" value="put" type="hidden">
+                    @csrf
+                    <input type="hidden" value="{{$post->id}}" name="id">
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+            <td>
+                <form method="post" action="/post/{{$post->id}}">
+                    <input name="_method" value="delete" type="hidden">
+                    @csrf
+                    <input type="hidden" value="{{$post['id']}}" name="id">
+                    <button type="submit">delete</button>
+                </form>
+            </td>
             <td></td>
         </tr>
     @endforeach

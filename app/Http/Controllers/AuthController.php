@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Servises\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -17,7 +16,6 @@ class AuthController extends Controller
 
     public function handleLogin(Request $request)
     {
-
         $request->validate([
             'email' => 'required',
             'password' => 'required',
@@ -30,39 +28,47 @@ class AuthController extends Controller
         }
 
         return redirect("login")->withSuccess('Login details are not valid');
+
     }
 
     public function logout(Request $request)
     {
-        Session::flush();
-        Auth::logout();
 
-        return redirect('login');
     }
 
-    public function registration(Request $request)
+    public function redirectGoogle()
     {
-        return view('Registration');
+        return Socialite::driver('google')->redirect('https://www.googleapis.com/auth/gmail.readonly');
     }
 
-    public function handleRegistration(Request $request)
+    public function callbeckGoogle()
     {
-        $request->validate([
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ]);
+        $user = Socialite::driver('google')->user();
+        if(User::find($user['email'])){
+            $this->googleAuth($user);
+        }else{
+        $this->regOrLogin($user);
+        }
 
-        $data = $request->all();
-        $check = $this->create($data);
-
-        return redirect('login')->withSuccess('You have signed-in');
     }
 
-    public function create(array $data)
+    public function regOrLogin($user)
     {
-        $user = new \App\Models\User();
-        $user->email = $data['email'];
-        $user->password = Hash::make($data['password']);
-        $user->save();
+        $newUser = new User();
+        $newUser->email = $user['email'];
+        $newUser->password = bcrypt('123456');
+        $newUser->save();
+
+        return view("index");
+    }
+
+    public function googleAuth($user)
+    {
+        $credentials = $user['email'];
+        if (Auth::attempt($credentials)) {
+            return view("index");
+        }
+
+        return redirect("login")->withSuccess('Login details are not valid');
     }
 }
